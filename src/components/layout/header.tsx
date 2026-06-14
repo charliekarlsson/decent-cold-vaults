@@ -35,14 +35,9 @@ export function Header() {
           className="flex items-center gap-3 group"
         >
           <DecentLogo size={48} className="transition-transform group-hover:scale-105" />
-          <div className="leading-tight">
-            <span className="font-display font-semibold text-[22px] text-foreground">
-              decent
-            </span>
-            <span className="hidden sm:block text-[14px] text-muted-foreground tracking-wide">
-              <span className="text-brand">decent</span>ralized storage
-            </span>
-          </div>
+          <span className="font-display font-bold text-[22px] sm:text-2xl tracking-tight leading-none text-foreground">
+            decent
+          </span>
         </Link>
 
         <nav className="flex items-center gap-3">

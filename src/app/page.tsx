@@ -76,16 +76,15 @@ export default function HomePage() {
 
       {/* Hero */}
       <section className="relative mx-auto max-w-6xl px-4 sm:px-6 pt-12 sm:pt-20 pb-8 sm:pb-12 landing-section">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="relative grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           <div className="animate-fade-up">
-            <p className="inline-flex items-center gap-2 rounded-full bg-brand-light border border-border px-4 py-1.5 text-xs font-medium text-brand-dark mb-6">
-              Secure Wallet Login · Cold Storage Encryption · Cloudflare R2
-            </p>
-
             <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.25rem] font-bold leading-[1.1] tracking-tight text-foreground mb-4">
-              <span className="block">
-                <span className="text-brand">decent</span>
-                <span>ralized</span>
+              <span className="flex flex-wrap items-center gap-3 sm:gap-4">
+                <span>
+                  <span className="text-brand">decent</span>
+                  <span>ralized</span>
+                </span>
+                <DecentLogo size={112} className="shrink-0" />
               </span>
               <span className="block">private cloud storage.</span>
             </h1>
@@ -96,11 +95,8 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="flex flex-col items-center lg:items-end animate-fade-up">
-            <DecentLogo size={160} className="mb-8 lg:mb-0 sm:scale-110" />
-            <div className="w-full max-w-md mt-8 lg:mt-10">
-              <WalletLogin onSuccess={() => router.push("/dashboard")} />
-            </div>
+          <div className="animate-fade-up w-full max-w-md lg:ml-auto">
+            <WalletLogin onSuccess={() => router.push("/dashboard")} />
           </div>
         </div>
       </section>
