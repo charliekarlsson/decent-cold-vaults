@@ -55,7 +55,7 @@ export function SeedPhraseDisplay({
         </div>
       </div>
 
-      <div className="relative">
+      <div>
         <div className="flex items-center justify-between mb-3">
           <Label className="font-display text-brand-dark text-base">
             Your 24-word Cold Key
@@ -81,6 +81,7 @@ export function SeedPhraseDisplay({
               size="sm"
               className="rounded-full"
               onClick={handleCopy}
+              disabled={!revealed}
             >
               {copied ? (
                 <Check className="h-4 w-4" />
@@ -92,37 +93,39 @@ export function SeedPhraseDisplay({
           </div>
         </div>
 
-        <div
-          className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 p-4 rounded-2xl border border-border bg-brand-light/30 font-mono text-sm ${
-            !revealed ? "blur-md select-none pointer-events-none" : ""
-          }`}
-        >
-          {words.map((word, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white border border-border/80"
-            >
-              <span className="text-muted-foreground text-xs w-5">
-                {i + 1}.
-              </span>
-              <span className="text-brand-dark font-medium">{word}</span>
-            </div>
-          ))}
-        </div>
-
-        {!revealed && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setRevealed(true)}
-              className="rounded-full bg-white/90 backdrop-blur-sm shadow-sm"
-            >
-              <Eye className="h-4 w-4" />
-              Tap to reveal Cold Key
-            </Button>
+        <div className="relative">
+          <div
+            className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 p-4 rounded-2xl border border-border bg-brand-light/30 font-mono text-sm ${
+              !revealed ? "blur-md select-none pointer-events-none" : ""
+            }`}
+          >
+            {words.map((word, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white border border-border/80"
+              >
+                <span className="text-muted-foreground text-xs w-5">
+                  {i + 1}.
+                </span>
+                <span className="text-brand-dark font-medium">{word}</span>
+              </div>
+            ))}
           </div>
-        )}
+
+          {!revealed && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setRevealed(true)}
+                className="rounded-full bg-white/90 backdrop-blur-sm shadow-sm"
+              >
+                <Eye className="h-4 w-4" />
+                Tap to reveal Cold Key
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="rounded-2xl border border-red-200 bg-red-50/50 p-5 space-y-4">
