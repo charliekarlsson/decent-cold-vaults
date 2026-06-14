@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Decent Cold Vaults
+
+Extremely private, client-side encrypted, permanent decentralized cloud storage.
+
+## Features
+
+- **Secure Wallet Login** — Micro-transaction SOL proof-of-ownership (no token approvals)
+- **Cold Key System** — 24-word BIP39 seed generated entirely client-side, shown once
+- **AES-256-GCM Encryption** — All files encrypted in-browser via Web Crypto API
+- **Decent Eternal Storage** — Permanent storage powered by Arweave (hidden from UI)
+- **Session-Only Keys** — Decryption keys live in memory; gone when tab closes
+
+## Tech Stack
+
+- Next.js 15+ (App Router) + TypeScript + Tailwind CSS
+- shadcn/ui components + lucide-react icons
+- Zustand for state management
+- @solana/web3.js for wallet authentication
+- arweave-js for permanent storage uploads
+- @scure/bip39 for seed phrase generation
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
+cp .env.example .env.local
+# Configure your Solana login address and Arweave wallet JWK
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Description |
+|---|---|
+| `NEXT_PUBLIC_SOLANA_RPC_URL` | Solana RPC endpoint |
+| `NEXT_PUBLIC_LOGIN_RECIPIENT_ADDRESS` | Wallet address for login micro-transactions |
+| `ARWEAVE_WALLET_JWK` | Funded Arweave wallet JSON key for uploads |
+| `NEXT_PUBLIC_ARWEAVE_GATEWAY` | Gateway for file downloads |
 
-## Learn More
+## Security Model
 
-To learn more about Next.js, take a look at the following resources:
+1. **Cold Keys** are generated with `crypto.getRandomValues` via @scure/bip39 — never sent to any server
+2. **Master keys** are derived via PBKDF2 (600k iterations) from the seed phrase
+3. **File keys** are derived per-file via HKDF from the master key
+4. **Encryption** uses AES-256-GCM with random 12-byte IVs
+5. **Only encrypted ciphertext** is uploaded to eternal storage
+6. **Vault metadata** (names, file manifests) is stored in localStorage — no keys
+7. **Session keys** are held in Zustand memory only
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/                    # Next.js App Router pages & API routes
+│   ├── page.tsx            # Landing + wallet login
+│   ├── dashboard/          # Vault dashboard
+│   ├── vault/[id]/         # Individual vault view
+│   └── api/
+│       ├── auth/verify/    # SOL transaction verification
+│       └── storage/upload/ # Encrypted blob upload to Arweave
+├── components/
+│   ├── auth/               # Wallet login
+│   ├── vault/              # Vault creation, upload, file list
+│   ├── layout/             # Header, navigation
+│   └── ui/                 # shadcn/ui primitives
+├── lib/
+│   ├── crypto/             # AES, seed phrase, key derivation
+│   ├── solana/             # Wallet micro-transaction login
+│   └── arweave/            # Eternal storage client helpers
+├── store/                  # Zustand vault store
+└── types/                  # TypeScript interfaces
+```
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Private — All rights reserved.
