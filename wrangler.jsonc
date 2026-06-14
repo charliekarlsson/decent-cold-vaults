@@ -1,5 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
+  "account_id": "6a5c1500a637706ac6f74f0ffdfa35cf",
   "main": ".open-next/worker.js",
   "name": "decent-cold-vaults",
   "compatibility_date": "2024-12-30",
