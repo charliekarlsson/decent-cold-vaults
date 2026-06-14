@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
     const { walletAddress } = await verifySessionToken(token);
 
-    if (!isR2Configured()) {
+    if (!(await isR2Configured())) {
       return NextResponse.json(
         {
           error:
@@ -63,8 +63,10 @@ export async function POST(request: NextRequest) {
       );
     }
     console.error("Storage upload error:", error);
+    const message =
+      error instanceof Error ? error.message : "Upload failed. Please try again.";
     return NextResponse.json(
-      { error: "Upload failed. Please try again." },
+      { error: message },
       { status: 500 }
     );
   }

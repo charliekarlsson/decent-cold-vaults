@@ -26,6 +26,12 @@
       "migrations_dir": "migrations"
     }
   ],
+  "r2_buckets": [
+    {
+      "binding": "R2_BUCKET",
+      "bucket_name": "decent-cold-vaults"
+    }
+  ],
   "observability": {
     "enabled": true
   }

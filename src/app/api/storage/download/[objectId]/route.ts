@@ -21,7 +21,7 @@ export async function GET(
 
     const { walletAddress } = await verifySessionToken(token);
 
-    if (!isR2Configured()) {
+    if (!(await isR2Configured())) {
       return NextResponse.json(
         { error: "Storage service not configured." },
         { status: 503 }

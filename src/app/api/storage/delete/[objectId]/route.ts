@@ -28,7 +28,7 @@ export async function DELETE(
       return NextResponse.json({ error: "File not found." }, { status: 404 });
     }
 
-    if (isR2Configured()) {
+    if (await isR2Configured()) {
       try {
         await deleteFromR2(objectId);
       } catch {
