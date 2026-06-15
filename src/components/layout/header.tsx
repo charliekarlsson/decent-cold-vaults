@@ -7,8 +7,8 @@ import { DecentLogo } from "@/components/brand/decent-logo";
 import { Button } from "@/components/ui/button";
 import { useVaultStore } from "@/store/vault-store";
 
-/** Replace with pump.fun URL when live. */
-const DCNT_TOKEN_URL = "#";
+const DCNT_TOKEN_URL =
+  "https://pump.fun/coin/dLfFWwSuHYuamVQjVy9wV19vFNJc8VmUJhCDcHcpump";
 
 const socialLinkClass =
   "inline-flex items-center text-brand-dark hover:text-brand transition-colors";
@@ -45,7 +45,7 @@ export function Header() {
             <a
               href={DCNT_TOKEN_URL}
               className={`${socialLinkClass} text-[15px] font-semibold tracking-wide`}
-              aria-label="$DCNT token (pump.fun link coming soon)"
+              aria-label="$DCNT token on pump.fun"
             >
               $DCNT
             </a>
